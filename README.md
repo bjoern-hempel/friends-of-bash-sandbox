@@ -1,6 +1,6 @@
 # Friends of ba$h sandbox
 
-An application sandbox that uses the friends of bash framework
+This is an application sandbox that uses the friends of bash framework. It contains the first needed scripts to install the framework (./install) and include it into the main script bin/run. Adopt it for your own usage.
 
 ## Usage
 
