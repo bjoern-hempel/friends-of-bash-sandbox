@@ -38,7 +38,7 @@ or install only the friends of bash library locally to use your application dire
 
 ```
 user$ ./install
-user$ [main-script] --help
+user$ bin/[main-script] --help
 ```
 
 Have fun! :)
