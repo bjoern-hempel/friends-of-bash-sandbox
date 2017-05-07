@@ -27,4 +27,18 @@ user$ git commit -m "first version"
 user$ git push -u origin master
 ```
 
-Edit the README.md and LICENSE file. Make your general changes and commit it. Have fun! :)
+Edit the README.md and LICENSE file. Make your general changes and commit it. Install your application globally:
+
+```
+user$ sudo ./install -g
+user$ [application-name] --help
+```
+
+or install only the friends of bash library locally to use your application directly within your development path:
+
+```
+user$ ./install
+user$ [main-script] --help
+```
+
+Have fun! :)
