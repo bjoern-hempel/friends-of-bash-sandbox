@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# include the libraries
+if [ -h "${BASH_SOURCE[0]}" ]; then
+    filename=$(readlink "${BASH_SOURCE[0]}")
+    pathRoot=$(dirname "$filename")"/.."
+else
+    pathRoot="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
+fi
+
+# get the scriptname
+if [[ "${BASH_SOURCE[0]}" =~ "/usr/local/bin" ]]; then
+    scriptname=$(basename "${BASH_SOURCE[0]}")
+else
+    scriptname="${BASH_SOURCE[0]}"
+fi
+
+# the friends of bash detection and config
+source "$pathRoot/config/config"
+source "$pathRoot/lib/fobDetection"
+
+# date (log file usage)
+dateFile=$(date +%Y-%m-%d_%H%M%S)
+
+# some params
+CONFIG_ENVIRONMENT_FOLDER="/etc/$repositoryName"
+     TMP_CONTENT_LOG_FILE="/tmp/${repositoryName}.${dateFile}.log"
+                 INI_FILE="/tmp/${repositoryName}.ini"
+
+# create ini file if not exists
+if [ ! -f "$INI_FILE" ]; then
+    touch "$INI_FILE"
+fi
+
+# check running status
+scriptIsRunning=$(getCachedValue "$INI_FILE" scriptIsRunning false)
+
+# script is already running
+if $scriptIsRunning; then
+    echo "Script is already running. Abort.."
+    exit
+fi
+
+# set running flag
+setCachedValue "$INI_FILE" scriptIsRunning true
+
+# include other libraries
+source "$pathRoot/lib/parameter"
+
+# do something here
+echo 'do something here'
+
+# script is not running anymore
+setCachedValue "$INI_FILE" scriptIsRunning false
+

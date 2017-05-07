@@ -1,0 +1,115 @@
+# friends of bash libs
+   friendsOfBashPathRemote="/opt/friends-of-bash"
+friendsOfBashIncludeRemote="$friendsOfBashPathRemote/lib/all"
+    friendsOfBashPathLocal="$pathRoot/friends-of-bash"
+ friendsOfBashIncludeLocal="$friendsOfBashPathLocal/lib/all"
+     friendsOfBashLibFound=false
+                remoteTest=true
+                 localTest=true
+
+# no local test if this is a global installation
+[ ! -z $GLOBAL_INSTALLATION ] && $GLOBAL_INSTALLATION && localTest=false
+
+# check the friends of bash library
+if $remoteTest && ! $friendsOfBashLibFound && [ -d "$friendsOfBashPathRemote" ] && [ -f "$friendsOfBashIncludeRemote" ]; then
+    friendsOfBashLibFound=true
+        friendsOfBashPath="$friendsOfBashPathRemote"
+     friendsOfBashInclude="$friendsOfBashIncludeRemote"
+fi
+if $localTest &&  ! $friendsOfBashLibFound && [ -d "$friendsOfBashPathLocal"  ] && [ -f "$friendsOfBashIncludeLocal"  ]; then
+    friendsOfBashLibFound=true
+        friendsOfBashPath="$friendsOfBashPathLocal"
+     friendsOfBashInclude="$friendsOfBashIncludeLocal"
+fi
+
+# script include mode: no friends of bash library detected → stop here
+if ! $friendsOfBashLibFound && [ -z $INSTALLATION ]; then
+    echo "No friends of bash library found."
+    exit
+fi
+
+# installation mode: the friends of bash library was not found
+if ! $friendsOfBashLibFound && [ ! -z $INSTALLATION ]; then
+    if $GLOBAL_INSTALLATION; then
+           friendsOfBashPath="$friendsOfBashPathRemote"
+        friendsOfBashInclude="$friendsOfBashIncludeRemote"
+    else
+           friendsOfBashPath="$friendsOfBashPathLocal"
+        friendsOfBashInclude="$friendsOfBashIncludeLocal"
+    fi
+
+    cancelInstallation=false
+
+    # ask the user
+    while true; do
+        read -p "Try to install the friends of bash library to \"$friendsOfBashPath\"? Type (y)es or (n)o: " -n 1 yn
+        echo
+        case $yn in
+            [Yy]* )
+                echo "Install friends of bash library to the directory \"$friendsOfBashPath\"."
+                result=$(wget -q "$friendsOfBashGitZip" -O /tmp/friends-of-bash.zip)
+                result=$(unzip -qq /tmp/friends-of-bash.zip -d /tmp)
+                result=$(mv /tmp/friends-of-bash-master "$friendsOfBashPath")
+                result=$(rm /tmp/friends-of-bash.zip)
+                break
+                ;;
+            [Nn]* )
+                echo "The installation was canceled by user."
+                cancelInstallation=true
+                break
+                ;;
+            * )
+                echo "Please type (y)es or (n)o."
+                ;;
+        esac
+    done
+
+    if ! $cancelInstallation; then
+
+        # git status is wrong
+        if [ $? -ne 0 ]; then
+            echo "Error occurred while installing the friends of bash library. The git was executed with status $?."
+            echo "$result"
+            exit 1
+        fi
+
+        # the fob folder was not found
+        if [ ! -d "$friendsOfBashPath" ]; then
+            echo "Error occurred while installing the friends of bash library. The folder \"$friendsOfBashPath\" was not found."
+            echo "$result"
+            exit 1
+        fi
+
+        # the include file was not found
+        if [ ! -f "$friendsOfBashInclude"  ]; then
+            echo "Error occurred while installing the friends of bash library. The include file \"$friendsOfBashInclude\" was not found."
+            echo "$result"
+            exit 1
+        fi
+
+        # everything is fine
+        friendsOfBashLibFound=true
+
+    fi
+fi
+
+# script include mode: no friends of bash library detected → stop here
+if ! $friendsOfBashLibFound; then
+    echo "No friends of bash library found → Abort."
+    exit
+fi
+
+# script include: friends of bash library detected
+if ! $friendsOfBashLibFound; then
+    echo "Something went wrong while including the friends of bash library."
+    exit 1
+fi
+
+# include the friends of bash library
+source "$friendsOfBashInclude"
+
+# a success message
+if [ ! -z $INSTALLATION ]; then
+    log "success" "The friends of bash library is available in the folder \"$friendsOfBashPath\"."
+fi
+
