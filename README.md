@@ -27,4 +27,4 @@ user$ git commit -m "first version"
 user$ git push -u origin master
 ```
 
-Make your changes and commit it. Have fun! :)
+Edit the README.md and LICENSE file. Make your general changes and commit it. Have fun! :)
