@@ -4,7 +4,7 @@ An application sandbox that uses the friends of bash framework
 
 ## Usage
 
-First create an empty repository ([application-name]). Then download the application sandbox. Afterwards replace [application-name] with the name of your repository:
+First create an empty repository ([application-name]) with your repository provider of your choice (e.g. github). Then download the application sandbox from here. Afterwards replace [application-name] with the name of your repository:
 
 ```
 user$ wget https://github.com/bjoern-hempel/friends-of-bash-sandbox/archive/master.zip
