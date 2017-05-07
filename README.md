@@ -12,7 +12,10 @@ user$ unzip master.zip
 user$ mv friends-of-bash-sandbox-master [application-name]
 user$ cd [application-name]
 user$ vi config/config
-Replace repositoryName and mainScript (default bin/run). If you change the mainScript name rename the bin/run application name.
+
+Replace repositoryName and mainScript (default bin/run).
+If you change the mainScript name rename the bin/run application name.
+
 user$ git config --global user.name "Your Name"
 user$ git config --global user.email "[your@email.com]"
 user$ git init
