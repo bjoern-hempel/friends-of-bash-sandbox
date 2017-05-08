@@ -40,7 +40,6 @@ source "$pathRoot/config/config"
 
 # git settings
 friendsOfBashGitZip="https://github.com/bjoern-hempel/friends-of-bash/archive/master.zip"
-      projectGitZip="https://github.com/bjoern-hempel/$repositoryName/archive/master.zip"
 
 # project settings
             projectPathLocal="$pathRoot"

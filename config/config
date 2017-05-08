@@ -1,2 +1,8 @@
+# put your repository name here
 repositoryName="friends-of-bash-sandbox"
+
+# the name of the main script; if you change the name, rename also the bin/run file
 mainScript="run"
+
+# replace the path with your git zip file
+projectGitZip="https://github.com/bjoern-hempel/$repositoryName/archive/master.zip"
