@@ -1,6 +1,6 @@
 # Friends of ba$h sandbox
 
-This is an application sandbox that uses the friends of bash framework (https://github.com/bjoern-hempel/friends-of-bash). It contains the first needed scripts to install the framework (./install) and include it into the main script bin/run. Adopt it for your own usage.
+This is an application sandbox that uses the friends of bash framework (https://github.com/bjoern-hempel/friends-of-bash). It contains the first needed scripts including an install script (./install) and the first version of a base main script (bin/run). Adopt it for your own usage.
 
 ## Usage
 
